@@ -1,21 +1,15 @@
 import sqlite3
-
-
-DB_PATH = "./clinic_simple.db"
-CSV_PATH = "./data/patients.csv"
-SCHEMA_PATH = "./sql/schema.sql"
-
-def main():
-
-    # Read the schema SQL file.
-    schema_sql = SCHEMA_PATH.read_text(encoding="utf-8")
-
-    # Create (or overwrite) the database and apply the schema.
-    with sqlite3.connect(DB_PATH) as conn:
-        conn.executescript(schema_sql)
-        conn.commit()
-
-    print(f"Created database: {DB_PATH}")
-
-if __name__ == "__main__":
-    main()
+from pathlib import Path
+# Paths
+db_path = Path("clinic_simple.db")
+schema_path = Path("sql/schema.sql")
+# Connect to DB
+conn = sqlite3.connect(db_path)
+cursor = conn.cursor()
+# Run schema
+with open(schema_path, "r") as f:
+    schema_sql = f.read()
+cursor.executescript(schema_sql)
+conn.commit()
+conn.close()
+print("Database created with schema applied")
