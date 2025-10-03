@@ -1,8 +1,9 @@
 import sqlite3
 
+
 DB_PATH = "./clinic_simple.db"
 CSV_PATH = "./data/patients.csv"
-SCHEMA_PATH = Path("./sql/schema.sql")
+SCHEMA_PATH = "./sql/schema.sql"
 
 def main():
 
